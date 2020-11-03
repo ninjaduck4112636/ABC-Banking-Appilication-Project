@@ -40,6 +40,8 @@ a:hover, a:active {
 	<center><a href="transferAmount.jsp">TRANSFER AMOUNT</a></center>
 	<br>
 	<center><a href="GetMiniStatement">MINI-STATEMENT</a></center>
+	<br>
+	<center><a href="ApplyForLoan.html">APPLY FOR LOAN</a></center>
 	
 	
 	
