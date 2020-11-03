@@ -32,7 +32,7 @@ public class LoanPage extends HttpServlet {
 			boolean b = model.applyForLoan();
 			
 			if(b)
-				request.getRequestDispatcher("sucess.html").forward(request, response);
+				request.getRequestDispatcher("loansucess.jsp").forward(request, response);
 			else
 				request.getRequestDispatcher("failure.html").forward(request, response);
 			
