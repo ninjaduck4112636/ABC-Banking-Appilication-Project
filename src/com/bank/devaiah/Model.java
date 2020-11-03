@@ -255,9 +255,10 @@ public class Model implements Serializable {
 			int xbalance = 0;
 			while(balance_query.next()) {
 				xbalance = balance_query.getInt("BALANCE");
-//				System.out.println(xbalance);
 			}
 			balance = xbalance+amount_for_loan;
+			System.out.println("*"+xbalance);
+			System.out.println("#"+amount_for_loan);
 			PreparedStatement pstmt = con.prepareStatement("UPDATE BANK_DATABASE SET BALANCE=? WHERE ACCOUNT_NO=?");
 			pstmt.setInt(1, balance);
 			pstmt.setInt(2, account_no);

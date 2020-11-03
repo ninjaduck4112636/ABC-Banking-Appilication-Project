@@ -23,7 +23,8 @@ public class LoanPage extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			int account_no = (int) session.getAttribute("account_no");
-			System.out.println(account_no);
+			model.setAccount_no(account_no);
+			model.setAmount_for_loan(amount_for_loan);
 			
 			session.setAttribute("loan_reason", loan_reason);
 			session.setAttribute("amount_for_loan", amount_for_loan);
