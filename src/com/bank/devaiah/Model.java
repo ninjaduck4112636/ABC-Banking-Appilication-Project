@@ -246,7 +246,7 @@ public class Model implements Serializable {
 		}
 		return res;
 	}
-	public int applyForLoan() {
+	public boolean applyForLoan() {
 		int n = 0;
 		try {
 			PreparedStatement balance_pstmt = con.prepareStatement("SELECT BALANCE FROM BANK_DATABASE WHERE ACCOUNT_NO=?");
@@ -255,16 +255,19 @@ public class Model implements Serializable {
 			int xbalance = 0;
 			while(balance_query.next()) {
 				xbalance = balance_query.getInt("BALANCE");
+//				System.out.println(xbalance);
 			}
 			balance = xbalance+amount_for_loan;
 			PreparedStatement pstmt = con.prepareStatement("UPDATE BANK_DATABASE SET BALANCE=? WHERE ACCOUNT_NO=?");
 			pstmt.setInt(1, balance);
 			pstmt.setInt(2, account_no);
 			n = pstmt.executeUpdate();
+			if(n>0)
+				return true;
 		} catch (Exception e) {
 
 		}
-		return n;
+		return false;
 	}
 		
 }

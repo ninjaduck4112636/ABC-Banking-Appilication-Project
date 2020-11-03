@@ -15,7 +15,6 @@ public class LoanPage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			
 			Model model = new Model();
 			
 			String loan_reason = request.getParameter("loan_reason");
@@ -23,11 +22,18 @@ public class LoanPage extends HttpServlet {
 			int amount_for_loan = Integer.valueOf(iamount_for_loan);
 			
 			HttpSession session = request.getSession();
+			int account_no = (int) session.getAttribute("account_no");
+			System.out.println(account_no);
 			
 			session.setAttribute("loan_reason", loan_reason);
 			session.setAttribute("amount_for_loan", amount_for_loan);
 			
-			int b = model.applyForLoan();
+			boolean b = model.applyForLoan();
+			
+			if(b)
+				request.getRequestDispatcher("sucess.html").forward(request, response);
+			else
+				request.getRequestDispatcher("failure.html").forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
