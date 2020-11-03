@@ -17,6 +17,8 @@ public class Model implements Serializable {
 	private Integer balance;
 	private String e_mail;
 	private int reciverAccountNO;
+	private String loan_reason;
+	private int amount_for_loan;
 	private Connection con = null;
 	
 	public Model() {
@@ -25,10 +27,10 @@ public class Model implements Serializable {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/test", "postgres", "system");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -42,6 +44,18 @@ public class Model implements Serializable {
 		this.e_mail = e_mail;
 	}
 	
+	public String getLoan_reason() {
+		return loan_reason;
+	}
+	public void setLoan_reason(String loan_reason) {
+		this.loan_reason = loan_reason;
+	}
+	public int getAmount_for_loan() {
+		return amount_for_loan;
+	}
+	public void setAmount_for_loan(int amount_for_loan) {
+		this.amount_for_loan = amount_for_loan;
+	}
 	public int getReciverAccountNO() {
 		return reciverAccountNO;
 	}
@@ -100,7 +114,7 @@ public class Model implements Serializable {
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -123,7 +137,7 @@ public class Model implements Serializable {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return false;
@@ -140,7 +154,7 @@ public class Model implements Serializable {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return false;
@@ -158,7 +172,7 @@ public class Model implements Serializable {
 			if(num>0)
 				return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return false;
@@ -213,7 +227,7 @@ public class Model implements Serializable {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return false;
@@ -227,10 +241,30 @@ public class Model implements Serializable {
 			pstmt.setInt(1, account_no);
 			res = pstmt.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return res;
+	}
+	public int applyForLoan() {
+		int n = 0;
+		try {
+			PreparedStatement balance_pstmt = con.prepareStatement("SELECT BALANCE FROM BANK_DATABASE WHERE ACCOUNT_NO=?");
+			balance_pstmt.setInt(1, account_no);
+			ResultSet balance_query = balance_pstmt.executeQuery();
+			int xbalance = 0;
+			while(balance_query.next()) {
+				xbalance = balance_query.getInt("BALANCE");
+			}
+			balance = xbalance+amount_for_loan;
+			PreparedStatement pstmt = con.prepareStatement("UPDATE BANK_DATABASE SET BALANCE=? WHERE ACCOUNT_NO=?");
+			pstmt.setInt(1, balance);
+			pstmt.setInt(2, account_no);
+			n = pstmt.executeUpdate();
+		} catch (Exception e) {
+
+		}
+		return n;
 	}
 		
 }

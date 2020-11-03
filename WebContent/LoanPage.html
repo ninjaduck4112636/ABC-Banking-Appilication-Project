@@ -18,18 +18,19 @@ a:hover, a:active {
 }
 </style>
 
-<title>Apply For Loan</title>
+<title>Loan Details</title>
 </head>
 <body style="background-color: black;">
 	<header>
-		<h1 style="color: white; text-align: center; font-family:Courier New; font-size: 600%"><b>CLICK THE LOAN TO APPLY</b></h1>
+		<h1 style="color: white; text-align: center; font-family:Courier New; font-size: 600%"><b>PLEASE ENTER THE DETAILS FOR APPLYING FOR LOAN</b></h1>
 	</header>
 	
 	<center>
-		<a href="LoanPage.html">HOME LOAN</a><br>
-		<a href="LoanPage.html">MARRIAGE LOAN</a><br>
-		<a href="LoanPage.html">EDUCATION LOAN</a><br>
-		<a href="LoanPage.html">VECHILE LOAN</a><br>
+		<form action="LoanPage" method="post">
+			RE-ENTER THE LOAN REQUIRED AGAIN: <input name="loan_reason" type="text" placeholder="LOAN REASON"><br>
+			ENTER THE AMOUNT REQUIRED FOR LOAN <input name="amount_for_loan" type="text" placeholder="AMOUNT FOR LOAN"><br>
+			<input type="submit" value="APPLY FOR LOAN!">
+		</form>
 	</center>
 	
 	<br><br>
