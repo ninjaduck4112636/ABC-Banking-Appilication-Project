@@ -14,13 +14,13 @@ import javax.servlet.http.HttpSession;
 public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
 		PrintWriter out = response.getWriter();
-		out.print("<p style=\"color: blue; text-align: center; font-family:Courier New; font-size: 300%\">Logout Successful</p>");
+		out.print("<p style=\"color: green; text-align: center; font-family:Courier New; font-size: 300%\"><b>Logout Successful</b></p>");
 		request.getRequestDispatcher("index.html").include(request, response);
 		
 	}
